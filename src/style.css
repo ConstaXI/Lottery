@@ -1,0 +1,146 @@
+body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    font-family: Helvetica Neue, sans-serif;
+    font-weight: normal;
+
+    color: #868686;
+    padding: 4rem 8rem;
+    background: #F7F7F7;
+    max-height: 100vh;
+}
+
+button {
+    cursor: pointer;
+}
+
+strong {
+    color: #3b3b3b;
+}
+
+#main-section {
+    width: 672px;
+}
+
+#bet-container {
+    display: flex;
+    flex-direction: row;
+    width: 670px;
+}
+
+#game-options {
+    margin: 32px 0 0 0;
+}
+
+#game-options button {
+    border: solid #27C383 2px;
+    color: #27C383;
+    border-radius: 4px;
+    padding: 16px;
+}
+
+#game-options button:hover {
+    color: white;
+    background: #27C383;
+}
+
+#add-to-cart {
+    background: #27C383;
+    color: white !important;
+}
+
+#add-to-cart:hover {
+    border: solid #22a972 2px;
+    background: #22a972 !important;
+}
+
+#bet-container {
+    display: grid;
+    grid-template-columns: 64px 64px 64px 64px 64px 64px 64px 64px 64px;
+    grid-column-gap: 12px;
+    grid-row-gap: 20px;
+}
+
+#cart-container {
+    position: sticky;
+    background: white;
+    border: 1px solid #E2E2E2;
+    border-radius: 10px;
+}
+
+#cart-div {
+    padding: 32px 20px;
+}
+
+#cart-save {
+    background: #F4F4F4;
+    height: 96px;
+    border: none;
+    width: 100%;
+
+    color: #27C383;
+    font-size: 2rem;
+    font-weight: bolder;
+}
+
+#game-type input {
+    display: none;
+}
+
+label {
+    display: inline-block;
+    width: 114px;
+    height: 34px;
+    text-align: center;
+    border: 2px solid #ddd;
+    border-radius: 100px;
+    line-height: 34px;
+    cursor: pointer;
+    font-weight: bold;
+    font-style: italic;
+}
+
+label[for="lotofacil"] {
+    border: 2px solid #7F3992;
+    color: #7F3992;
+}
+
+label[for="mega-sena"] {
+    border: 2px solid #01AC66;
+    color: #01AC66;
+}
+
+label[for="lotomania"] {
+    border: 2px solid #F79C31;
+    color: #F79C31;
+}
+
+#lotofacil:checked ~ label[for="lotofacil"] {
+    background: #7F3992;
+    color: white;
+}
+
+#mega-sena:checked ~ label[for="mega-sena"] {
+    background: #01AC66;
+    color: white;
+}
+
+#lotomania:checked ~ label[for="lotomania"] {
+    background: #F79C31;
+    color: white;
+}
+
+.bet {
+    background: #ADC0C4;
+    border: none;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    color: white;
+}
+
+.bet:hover {
+    background: #9aabaf;
+}
