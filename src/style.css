@@ -116,7 +116,7 @@ strong {
 }
 
 #cart-numbers-container-megasena {
-    width: 100%;
+    width: 80%;
     padding-left: 12px;
     border-left: 4px solid #22a972;
     border-radius: 4px;
@@ -125,7 +125,7 @@ strong {
 }
 
 #cart-numbers-container-lotomania {
-    width: 100%;
+    width: 80%;
     padding-left: 12px;
     border-left: 4px solid #F79C31;
     border-radius: 4px;
@@ -134,7 +134,7 @@ strong {
 }
 
 #cart-numbers-container-lotofacil {
-    width: 100%;
+    width: 80%;
     padding-left: 12px;
     border-left: 4px solid #7F3992;
     border-radius: 4px;
@@ -160,7 +160,6 @@ strong {
 
 .cart-numbers-type {
     display: flex;
-    width: 100%;
     justify-content: space-between;
     flex-direction: row;
 }
@@ -170,7 +169,6 @@ strong {
 }
 
 .icon-and-numbers {
-    width: 100%;
     margin: 16px 0;
     display: flex;
     align-items: center;
@@ -188,13 +186,13 @@ strong {
 
 #lottery-lotofacil {
     font-weight: bold;
-    color: #F79C31;
+    color: #7F3992;
     margin-right: 8px;
 }
 
 #lottery-lotomania {
     font-weight: bold;
-    color: #7F3992;
+    color: #F79C31;
     margin-right: 8px;
 }
 

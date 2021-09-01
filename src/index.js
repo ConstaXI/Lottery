@@ -1,4 +1,4 @@
-(function(window, document){
+(function (window, document) {
     'use strict';
 
     const app = (() => {
@@ -8,6 +8,7 @@
         const $cartItems = document.getElementById('cart-items')
         const $lotteryNumbers = document.getElementsByClassName('bet')
         const $addToCart = document.getElementById('add-to-cart')
+        const $total = document.getElementById('total')
 
         return {
             init: function () {
@@ -18,21 +19,57 @@
                 $addToCart.addEventListener('click', () => this.addDivToCart($addToCart), false)
             },
 
-            addNumberToDivCart: function (lotteryType, id) {
-
+            addNumberToDivCart: function ($option) {
+                $option.children[0].textContent += ', ' + this.getLotteryNumbers()
             },
 
-            getLotteryNumbers: function() {
-                const numbers = []
+            getTotal: function() {
+                const $1 = document.getElementById('cart-numbers-container-lotofacil')
+                const $2 = document.getElementById('cart-numbers-container-megasena')
+                const $3 = document.getElementById('cart-numbers-container-lotomania')
+
+                const lotofacil = Array.from($1.children[0].textContent)
+                const megasena = Array.from($2.children[0].textContent)
+                const lotomania = Array.from($3.children[0].textContent)
+
+                console.log(lotofacil.length, megasena.length, lotomania.length)
+            },
+
+            getLotteryNumbers: function () {
+                const numbers = new Set()
 
                 Array.prototype.forEach.call($lotteryNumbers, ($number) => {
-                    $number.checked ? numbers.push(+$number.id) : ''
+                    $number.checked ? numbers.add(+$number.id) : ''
                 })
 
-                return numbers
+                return Array.from(numbers).join(', ')
             },
 
-            addDivToCart: function() {
+            clearChecks: function () {
+                Array.prototype.forEach.call($lotteryNumbers, ($number) => {
+                    $number.checked = false
+                })
+            },
+
+            addDivToCart: function () {
+                const $1 = document.getElementById('cart-numbers-container-lotofacil')
+                const $2 = document.getElementById('cart-numbers-container-megasena')
+                const $3 = document.getElementById('cart-numbers-container-lotomania')
+
+                if ($1 && $lotofacil.checked) {
+                    app.addNumberToDivCart($1)
+                    app.clearChecks()
+                    return
+                } else if ($2 && $megasena.checked) {
+                    app.addNumberToDivCart($2)
+                    app.clearChecks()
+                    return
+                } else if ($3 && $lotomania.checked) {
+                    app.addNumberToDivCart($3)
+                    app.clearChecks()
+                    return
+                }
+
                 const numbers = app.getLotteryNumbers()
 
                 const $iconAndNumbers = document.createElement('div')
@@ -42,7 +79,6 @@
                 const $price = document.createElement('p')
                 const $trashIcon = document.createElement('img')
                 const $cartNumbersContainer = document.createElement('div')
-                const $total = document.getElementById('total')
 
                 $trashIcon.setAttribute('src', './assets/trash_can.png')
                 $trashIcon.setAttribute('alt', 'trash can')
@@ -64,7 +100,6 @@
                 }
 
                 $cartNumbersType.setAttribute('class', 'cart-numbers-type')
-                $lottery.setAttribute('id', '')
 
                 $number.innerText = numbers.toString()
                 $price.innerText = 'R$ ' + (numbers.length * 0.50).toString()
@@ -76,6 +111,9 @@
                 $iconAndNumbers.appendChild($trashIcon)
                 $iconAndNumbers.appendChild($cartNumbersContainer)
                 $cartItems.appendChild($iconAndNumbers)
+
+                app.getTotal()
+                app.clearChecks()
             }
         }
     })()
