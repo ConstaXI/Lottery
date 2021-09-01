@@ -30,6 +30,35 @@ strong {
     width: 670px;
 }
 
+#bet-container label {
+    display: inline-block;
+    text-align: center;
+    line-height: 64px;
+    background: #ADC0C4;
+    border-radius: 50%;
+    border: 4px solid #ADC0C4;
+    width: 60px;
+    height: 60px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#bet-container label:hover {
+    background: #9aabaf;
+    border: 4px solid #9aabaf;
+}
+
+#bet-container input:checked + label {
+    background: white;
+    color: #27C383;
+    border: 4px solid #27C383;
+}
+
+#bet-container input {
+    display: none;
+}
+
 #game-options {
     margin: 32px 0 0 0;
 }
@@ -64,7 +93,7 @@ strong {
 }
 
 #cart-container {
-    max-width: 20vw;
+    width: 25vw;
     position: sticky;
     background: white;
     border: 1px solid #E2E2E2;
@@ -86,7 +115,8 @@ strong {
     font-weight: bolder;
 }
 
-.cart-numbers-container {
+#cart-numbers-container-megasena {
+    width: 100%;
     padding-left: 12px;
     border-left: 4px solid #22a972;
     border-radius: 4px;
@@ -94,13 +124,44 @@ strong {
     flex-direction: column;
 }
 
-.cart-numbers-container p {
+#cart-numbers-container-lotomania {
+    width: 100%;
+    padding-left: 12px;
+    border-left: 4px solid #F79C31;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+#cart-numbers-container-lotofacil {
+    width: 100%;
+    padding-left: 12px;
+    border-left: 4px solid #7F3992;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+#cart-numbers-container-lotofacil p, #cart-numbers-container-megasena p, #cart-numbers-container-lotomania p {
     margin: 6px 0;
+}
+
+#lottery-megasena {
+    font-weight: bold;
+}
+
+#lottery-lotofacil {
+    font-weight: bold;
+}
+
+#lottery-lotomania {
     font-weight: bold;
 }
 
 .cart-numbers-type {
     display: flex;
+    width: 100%;
+    justify-content: space-between;
     flex-direction: row;
 }
 
@@ -109,9 +170,9 @@ strong {
 }
 
 .icon-and-numbers {
+    width: 100%;
     margin: 16px 0;
     display: flex;
-    flex-direction: row;
     align-items: center;
 }
 
@@ -125,11 +186,24 @@ strong {
     margin-right: 8px;
 }
 
+#lottery-lotofacil {
+    font-weight: bold;
+    color: #F79C31;
+    margin-right: 8px;
+}
+
+#lottery-lotomania {
+    font-weight: bold;
+    color: #7F3992;
+    margin-right: 8px;
+}
+
 #game-type input {
     display: none;
 }
 
-label {
+
+.lottery-label {
     display: inline-block;
     width: 114px;
     height: 34px;
@@ -141,7 +215,6 @@ label {
     font-weight: bold;
     font-style: italic;
 }
-
 label[for="lotofacil"] {
     border: 2px solid #7F3992;
     color: #7F3992;
@@ -175,17 +248,4 @@ label[for="lotomania"] {
 .icon {
     width: 24px;
     height: 24px;
-}
-
-.bet {
-    background: #ADC0C4;
-    border: none;
-    border-radius: 50%;
-    width: 64px;
-    height: 64px;
-    color: white;
-}
-
-.bet:hover {
-    background: #9aabaf;
 }
