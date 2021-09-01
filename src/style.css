@@ -7,7 +7,7 @@ body {
     font-weight: normal;
 
     color: #868686;
-    padding: 4rem 8rem;
+    padding: 4rem 6rem;
     background: #F7F7F7;
     max-height: 100vh;
 }
@@ -64,6 +64,7 @@ strong {
 }
 
 #cart-container {
+    max-width: 20vw;
     position: sticky;
     background: white;
     border: 1px solid #E2E2E2;
@@ -83,6 +84,45 @@ strong {
     color: #27C383;
     font-size: 2rem;
     font-weight: bolder;
+}
+
+.cart-numbers-container {
+    padding-left: 12px;
+    border-left: 4px solid #22a972;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-numbers-container p {
+    margin: 6px 0;
+    font-weight: bold;
+}
+
+.cart-numbers-type {
+    display: flex;
+    flex-direction: row;
+}
+
+.cart-numbers-type p {
+    font-weight: normal;
+}
+
+.icon-and-numbers {
+    margin: 16px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.icon-and-numbers img {
+    margin-right: 8px;
+}
+
+#lottery-megasena {
+    font-weight: bold;
+    color: #27C383;
+    margin-right: 8px;
 }
 
 #game-type input {
@@ -130,6 +170,11 @@ label[for="lotomania"] {
 #lotomania:checked ~ label[for="lotomania"] {
     background: #F79C31;
     color: white;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
 }
 
 .bet {
