@@ -75,6 +75,12 @@ strong {
     background: #27C383;
 }
 
+#total {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 #add-to-cart {
     background: #27C383;
     color: white !important;
@@ -243,7 +249,8 @@ label[for="lotomania"] {
     color: white;
 }
 
-.icon {
+.trash-icon {
+    cursor: pointer;
     width: 24px;
     height: 24px;
 }
