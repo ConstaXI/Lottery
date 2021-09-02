@@ -12,6 +12,11 @@
         const $totalSum = document.getElementById('total-sum')
         const $save = document.getElementById('cart-save')
         const $completeGame = document.getElementById('complete-game')
+        const $description = document.getElementById('game-description')
+        const $betContainer = document.getElementById('bet-container')
+
+        const xhr = new XMLHttpRequest()
+
         const total = {
             lotofacil: new Set(),
             megasena: new Set(),
@@ -20,6 +25,8 @@
 
         return {
             init: function () {
+                xhr.open('GET', './games.json')
+                xhr.send()
                 this.initEvents()
             },
 
@@ -28,17 +35,70 @@
                 $clear.addEventListener('click', this.clearChecks, false)
                 $save.addEventListener('click', this.handleSubmit, false)
                 $completeGame.addEventListener('click', this.completeGame, false)
+                $lotofacil.addEventListener('change', () => this.changeGameRules('lotofacil'), false)
+                $megasena.addEventListener('change', () => this.changeGameRules('megasena'), false)
+                $lotomania.addEventListener('change', () => this.changeGameRules('lotomania'), false)
+                xhr.addEventListener('readystatechange', this.loadGameConfig, false)
+            },
+
+            loadGameConfig: function () {
+                if (!(xhr.status === 200 && xhr.readyState === 4)) {
+                    return
+                }
+
+                return JSON.parse(xhr.response)
+            },
+
+            changeGameRules: function (lotteryType) {
+                $betContainer.innerHTML = ''
+
+                const gameConfig = app.loadGameConfig().types
+
+                let lottery
+
+                switch (lotteryType) {
+                    case 'lotofacil': {
+                        lottery = gameConfig[0]
+                        break
+                    }
+                    case 'megasena': {
+                        lottery = gameConfig[1]
+                        break
+                    }
+                    case 'lotomania': {
+                        lottery = gameConfig[2]
+                        break
+                    }
+                }
+
+                $description.innerText = lottery.description
+
+                for (let i = 1; i <= lottery.range; i++) {
+                    const $lotteryNumber = document.createElement('input')
+                    const $lotteryNumberLabel = document.createElement('label')
+
+                    $lotteryNumber.setAttribute('type', 'checkbox')
+                    $lotteryNumber.setAttribute('id', i.toString())
+                    $lotteryNumber.setAttribute('class', 'bet')
+
+                    $lotteryNumberLabel.setAttribute('class', 'bet-label')
+                    $lotteryNumberLabel.setAttribute('for', i.toString())
+                    $lotteryNumberLabel.innerText = i.toString()
+
+                    $betContainer.appendChild($lotteryNumber)
+                    $betContainer.appendChild($lotteryNumberLabel)
+                }
             },
 
             generateNumbers: function* (array) {
                 let i = array.length
 
-                while(i--) {
+                while (i--) {
                     yield array.splice(Math.floor(Math.random() * (i + 1)), 1)[0]
                 }
             },
 
-            completeGame: function() {
+            completeGame: function () {
                 app.clearChecks()
 
                 const numbers = Array.from({length: 36}, (_, index) => index + 1)
@@ -50,7 +110,7 @@
                     Array.prototype.forEach.call($lotteryNumbers, ($lotteryNumber) => {
                         $lotteryNumber.disabled = true
 
-                        if(randomNumber === +$lotteryNumber.id) {
+                        if (randomNumber === +$lotteryNumber.id) {
                             $lotteryNumber.checked = true
                         }
                     })
@@ -90,7 +150,7 @@
                 this.getTotal()
             },
 
-            getTotal: function() {
+            getTotal: function () {
                 const array = []
 
                 array.push(Array.from(total.lotofacil))
@@ -197,7 +257,7 @@
                 app.clearChecks()
             },
 
-            removeCartItem: function($iconAndNumbers) {
+            removeCartItem: function ($iconAndNumbers) {
                 $iconAndNumbers.remove()
 
                 const lotteryType = $iconAndNumbers.id.match(/(\w+$)/)[0]
