@@ -10,6 +10,8 @@
         const $addToCart = document.getElementById('add-to-cart')
         const $clear = document.getElementById('clear')
         const $totalSum = document.getElementById('total-sum')
+        const $save = document.getElementById('cart-save')
+        const $completeGame = document.getElementById('complete-game')
         const total = {
             lotofacil: new Set(),
             megasena: new Set(),
@@ -23,7 +25,54 @@
 
             initEvents: function () {
                 $addToCart.addEventListener('click', () => this.addDivToCart($addToCart), false)
-                $clear.addEventListener('click', () => this.clearChecks(), false)
+                $clear.addEventListener('click', this.clearChecks, false)
+                $save.addEventListener('click', this.handleSubmit, false)
+                $completeGame.addEventListener('click', this.completeGame, false)
+            },
+
+            generateNumbers: function* (array) {
+                let i = array.length
+
+                while(i--) {
+                    yield array.splice(Math.floor(Math.random() * (i + 1)), 1)[0]
+                }
+            },
+
+            completeGame: function() {
+                app.clearChecks()
+
+                const numbers = Array.from({length: 36}, (_, index) => index + 1)
+                const generated = app.generateNumbers(numbers)
+                const randomNumbers = Array.from({length: 20}, (_) => generated.next().value)
+
+
+                randomNumbers.forEach(randomNumber => {
+                    Array.prototype.forEach.call($lotteryNumbers, ($lotteryNumber) => {
+                        $lotteryNumber.disabled = true
+
+                        if(randomNumber === +$lotteryNumber.id) {
+                            $lotteryNumber.checked = true
+                        }
+                    })
+                })
+            },
+
+            handleSubmit: function (e) {
+                e.preventDefault()
+
+                console.dir({
+                    lotofacil: Array.from(total.lotofacil),
+                    megasena: Array.from(total.megasena),
+                    lotomania: Array.from(total.lotomania),
+                    sum: app.getTotal()
+                })
+
+                return {
+                    lotofacil: Array.from(total.lotofacil),
+                    megasena: Array.from(total.megasena),
+                    lotomania: Array.from(total.lotomania),
+                    sum: app.getTotal()
+                }
             },
 
             addNumberToDivCart: function ($option) {
@@ -36,6 +85,7 @@
                 })
 
                 $option.children[0].textContent = Array.from(total[lotteryType]).toString()
+                $option.children[1].children[1].textContent = 'R$ ' + (newNumbers.length * 0.35).toFixed(2).toString()
 
                 this.getTotal()
             },
@@ -47,7 +97,11 @@
                 array.push(Array.from(total.megasena))
                 array.push(Array.from(total.lotomania))
 
-                $totalSum.innerText = 'R$ ' + (array.flat(1).length * 0.35).toFixed(2).toString()
+                const sum = Number((array.flat(1).length * 0.35).toFixed(2))
+
+                $totalSum.innerText = 'R$ ' + sum.toString()
+
+                return sum
             },
 
             getLotteryNumbers: function (id) {
@@ -61,6 +115,7 @@
             clearChecks: function () {
                 Array.prototype.forEach.call($lotteryNumbers, ($number) => {
                     $number.checked = false
+                    $number.disabled = false
                 })
             },
 
